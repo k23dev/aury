@@ -4,32 +4,33 @@ import (
 	"aury/aury/characters"
 	"aury/aury/locations"
 	"aury/aury/scenes"
+	"fmt"
 	"slices"
 )
 
-type Plot struct {
+type Episode struct {
 	Characters *[]characters.Character
 	Locations  *[]locations.Location
 	Scenes     *[]scenes.Scene
 }
 
-func NewPlot() *Plot {
-	return &Plot{}
+func NewPlot() *Episode {
+	return &Episode{}
 }
 
-func (p *Plot) AddScene(name scenes.SceneID) (*scenes.Scene, error) {
+func (p *Episode) AddScene(name scenes.SceneID) (*scenes.Scene, error) {
 	newScene := scenes.New(name)
 	// TODO
 	p.insertScene(*newScene)
 	return newScene, nil
 }
 
-func (p *Plot) RemoveScene(id scenes.SceneID) error {
+func (p *Episode) RemoveScene(id scenes.SceneID) error {
 	p.deleteScene(id)
 	return nil
 }
 
-func (p *Plot) GetScene(id scenes.SceneID) (*scenes.Scene, error) {
+func (p *Episode) GetScene(id scenes.SceneID) (*scenes.Scene, error) {
 	var selectedScene *scenes.Scene
 	for _, scene := range *p.Scenes {
 		if scene.ID == id {
@@ -40,18 +41,18 @@ func (p *Plot) GetScene(id scenes.SceneID) (*scenes.Scene, error) {
 	return selectedScene, nil
 }
 
-func (p *Plot) AddCharacter(id characters.CharacterID, name string) (*characters.Character, error) {
+func (p *Episode) AddCharacter(id characters.CharacterID, name string) (*characters.Character, error) {
 	newCharacter := characters.NewCharacter(id, name)
 	p.insertCharacter(*newCharacter)
 	return newCharacter, nil
 }
 
-func (p *Plot) RemoveCharacter(id characters.CharacterID) error {
+func (p *Episode) RemoveCharacter(id characters.CharacterID) error {
 	p.deleteCharacter(id)
 	return nil
 }
 
-func (p *Plot) GetCharacter(id characters.CharacterID) (*characters.Character, error) {
+func (p *Episode) GetCharacter(id characters.CharacterID) (*characters.Character, error) {
 	var selectedCharacter *characters.Character
 	for _, character := range *p.Characters {
 		if character.ID == id {
@@ -62,18 +63,18 @@ func (p *Plot) GetCharacter(id characters.CharacterID) (*characters.Character, e
 	return selectedCharacter, nil
 }
 
-func (p *Plot) AddLocation(id locations.LocationID) (*locations.Location, error) {
+func (p *Episode) AddLocation(id locations.LocationID) (*locations.Location, error) {
 	newLocation := locations.New()
 	p.insertLocation(*newLocation)
 	return newLocation, nil
 }
 
-func (p *Plot) RemoveLocation(id locations.LocationID) error {
+func (p *Episode) RemoveLocation(id locations.LocationID) error {
 	p.deleteLocation(id)
 	return nil
 }
 
-func (p *Plot) GetLocation(id locations.LocationID) (*locations.Location, error) {
+func (p *Episode) GetLocation(id locations.LocationID) (*locations.Location, error) {
 	var selectedLocation *locations.Location
 	for _, location := range *p.Locations {
 		if location.ID == id {
@@ -86,12 +87,12 @@ func (p *Plot) GetLocation(id locations.LocationID) (*locations.Location, error)
 
 // private fn
 
-func (p *Plot) insertScene(newScene scenes.Scene) {
+func (p *Episode) insertScene(newScene scenes.Scene) {
 	scenes := append(*p.Scenes, newScene)
 	p.Scenes = &scenes
 }
 
-func (p *Plot) deleteScene(oldSceneName scenes.SceneID) {
+func (p *Episode) deleteScene(oldSceneName scenes.SceneID) {
 	auxScenes := slices.Clone(*p.Scenes)
 	for key, scene := range auxScenes {
 		if scene.ID == oldSceneName {
@@ -102,12 +103,12 @@ func (p *Plot) deleteScene(oldSceneName scenes.SceneID) {
 	}
 }
 
-func (p *Plot) insertCharacter(newCharacter characters.Character) {
+func (p *Episode) insertCharacter(newCharacter characters.Character) {
 	characters := append(*p.Characters, newCharacter)
 	p.Characters = &characters
 }
 
-func (p *Plot) deleteCharacter(oldCharacterID characters.CharacterID) {
+func (p *Episode) deleteCharacter(oldCharacterID characters.CharacterID) {
 	auxCharacters := slices.Clone(*p.Characters)
 	for key, Character := range auxCharacters {
 		if Character.ID == oldCharacterID {
@@ -118,18 +119,27 @@ func (p *Plot) deleteCharacter(oldCharacterID characters.CharacterID) {
 	}
 }
 
-func (p *Plot) insertLocation(newLocation locations.Location) {
+func (p *Episode) insertLocation(newLocation locations.Location) {
 	locations := append(*p.Locations, newLocation)
 	p.Locations = &locations
 }
 
-func (p *Plot) deleteLocation(oldLocationID locations.LocationID) {
+func (p *Episode) deleteLocation(oldLocationID locations.LocationID) {
 	auxLocations := slices.Clone(*p.Locations)
 	for key, location := range auxLocations {
 		if location.ID == oldLocationID {
 			auxLocations = slices.Delete(auxLocations, key, 1)
 			p.Locations = &auxLocations
 			break
+		}
+	}
+}
+
+// this shows every milestone in the plot
+func (p *Episode) Debug() {
+	for _, scene := range *p.Scenes {
+		for _, milestone := range scene.Timeline.Milestones {
+			fmt.Printf("%v \n", milestone)
 		}
 	}
 }

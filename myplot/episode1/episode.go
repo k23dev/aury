@@ -1,10 +1,10 @@
 package episode1
 
 import (
-	"aury/aury/scenes"
+	"aury/aury"
 )
 
-func Episode() *[]scenes.Scene {
+func Episode() *aury.Episode {
 
 	// set the characters
 	chAury, _ := episode.GetCharacter("aury")
@@ -30,6 +30,6 @@ func Episode() *[]scenes.Scene {
 	currentScene.AddDialog(&chRene.ID, "Todo va según el plan")
 	currentScene.AddDialog(&chPrince.ID, "¡Excelentes noticias!")
 
-	return episode.Scenes
+	return episode
 
 }
