@@ -36,7 +36,7 @@ func (s *Scene) SetMusic(filepath string) error {
 }
 
 func (s *Scene) SetLocation(location locations.Location) error {
-	description := fmt.Sprintf("location set \"%v\"", location.ID)
+	description := fmt.Sprintf("location set \"%s\"", location.ID)
 	s.Timeline.AddMilestone(description)
 	// TODO
 	return nil

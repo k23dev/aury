@@ -14,13 +14,24 @@ func New() *Location {
 	return &Location{}
 }
 
-func (l *Location) SetBackground(filepath string) error {
-	// TODO
+func (l *Location) SetName(name string) error {
+	l.Name = name
 	return nil
 }
 
-func (l *Location) SetBgStyle(filepath string) error {
-	// TODO
+func (l *Location) SetBackground(filepath string) error {
+	l.Background = filepath
+	return nil
+}
+
+func (l *Location) AddBgStyle(style string) error {
+	l.insertStyle(style)
+	return nil
+}
+
+func (l *Location) ResetBgStyle() error {
+	var reset []string
+	l.BgStyle = reset
 	return nil
 }
 
@@ -30,4 +41,8 @@ func (l *Location) SetBluriedBgStyle() {
 
 func (l *Location) SetShapedBgStyle() {
 	// TODO
+}
+
+func (l *Location) insertStyle(style string) {
+	l.BgStyle = append(l.BgStyle, style)
 }

@@ -100,8 +100,18 @@ func (e *Episode) GetCharacterKey(id characters.CharacterID) (int, error) {
 
 func (e *Episode) AddLocation(id locations.LocationID) (*locations.Location, error) {
 	newLocation := locations.New()
+	newLocation.ID = id
 	e.insertLocation(*newLocation)
 	return newLocation, nil
+}
+
+func (e *Episode) UpdateLocation(location locations.Location) error {
+	key, err := e.GetLocationKey(location.ID)
+	if err != nil {
+		return err
+	}
+	e.Locations[key] = location
+	return nil
 }
 
 func (e *Episode) RemoveLocation(id locations.LocationID) error {
@@ -117,6 +127,15 @@ func (e *Episode) GetLocation(id locations.LocationID) (locations.Location, erro
 		}
 	}
 	return selectedLocation, auryError.New("Get Location", auryError.LocationNotFound(id), 0)
+}
+
+func (e *Episode) GetLocationKey(id locations.LocationID) (int, error) {
+	for key, location := range e.Locations {
+		if location.ID == id {
+			return key, nil
+		}
+	}
+	return 0, auryError.New("Get Location key", auryError.LocationNotFound(id), 0)
 }
 
 // private fn

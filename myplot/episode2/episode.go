@@ -1,4 +1,4 @@
-package episode1
+package episode2
 
 import (
 	"aury/aury/episodes"
@@ -9,17 +9,12 @@ func Episode() episodes.Episode {
 	episode := episodes.NewEpisode()
 	Setup(episode)
 
-	scene1(episode)
-	scene2(episode)
-
-	return *episode
-}
-
-func scene1(episode *episodes.Episode) {
 	// set the characters
 	chAury, _ := episode.GetCharacter("aury")
 
 	chO, _ := episode.GetCharacter("o")
+	chRene, _ := episode.GetCharacter("rene")
+	chPrince, _ := episode.GetCharacter("prince")
 
 	currentScene, err := episode.AddScene("intro")
 	if err != nil {
@@ -36,19 +31,13 @@ func scene1(episode *episodes.Episode) {
 	currentScene.AddActionFromCharacterTo("golpea", Golpear, chAury.ID, chO)
 	chO.EditAttribute("maldad", 10)
 	episode.UpdateCharacter(*chO)
-}
 
-func scene2(episode *episodes.Episode) {
-
-	chRene, _ := episode.GetCharacter("rene")
-	chPrince, _ := episode.GetCharacter("prince")
-
-	currentScene, err := episode.AddScene("el_plan")
+	currentScene, err = episode.AddScene("el_plan")
 	if err != nil {
 		panic(err)
 	}
 
-	currentLocation, err := episode.GetLocation("cafecito")
+	currentLocation, err = episode.GetLocation("cafecito")
 	if err != nil {
 		log.Println(err)
 	}
@@ -61,6 +50,8 @@ func scene2(episode *episodes.Episode) {
 	currentScene.AddDialog(chPrince.ID, "¡Excelentes noticias!")
 	currentScene.AddActionOfCharacter("Escupirse la mano", EstrecharMano, chPrince.ID)
 	currentScene.AddActionFromCharacterTo("estrechar mano", EstrecharMano, chPrince.ID, chRene.ID)
+
+	return *episode
 }
 
 func Escupirse() string {

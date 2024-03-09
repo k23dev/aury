@@ -22,3 +22,15 @@ func LocationNotFound(id locations.LocationID) string {
 func AttributeNotFound(id characters.AttributeID) string {
 	return fmt.Sprintf("Attribute %s not found", id)
 }
+
+func SpriteNotFound(id characters.SpriteID) string {
+	return fmt.Sprintf("Sprite %s not found", id)
+}
+
+// func SoundNotFound(id characters.SpriteID) string {
+// 	return fmt.Sprintf("Sprite %s not found", id)
+// }
+
+// func MusicNotFound(id characters.SpriteID) string {
+// 	return fmt.Sprintf("Sprite %s not found", id)
+// }

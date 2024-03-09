@@ -1,4 +1,4 @@
-package episode1
+package episode2
 
 import (
 	"aury/aury/episodes"
@@ -7,6 +7,7 @@ import (
 )
 
 func Setup(episode *episodes.Episode) {
-	episode.Characters = myplot_characters.CharactersEpisode1Setup(episode)
+	episode.Characters = myplot_characters.CharactersEpisode2Setup(episode)
+
 	episode.Locations = myplot_locations.LocationsSetup(episode)
 }
