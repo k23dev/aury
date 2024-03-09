@@ -14,7 +14,7 @@ type Episode struct {
 	Scenes     *[]scenes.Scene
 }
 
-func NewPlot() *Episode {
+func NewEpisode() *Episode {
 	return &Episode{}
 }
 

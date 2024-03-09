@@ -2,7 +2,7 @@ package episode1
 
 import "aury/aury"
 
-var episode = aury.NewPlot()
+var episode = aury.NewEpisode()
 
 func Setup() {
 	CharactersSetup()
