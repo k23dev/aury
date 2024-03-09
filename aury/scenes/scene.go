@@ -42,9 +42,9 @@ func (s *Scene) SetLocation(location locations.Location) error {
 	return nil
 }
 
-func (s *Scene) AddDialog(character characters.CharacterID, text string) {
-	description := fmt.Sprintf("new dialog of character \"%s\"", character)
-	s.Timeline.AddMilestoneDialog(description)
+func (s *Scene) AddDialog(characterID characters.CharacterID, text string) {
+	description := fmt.Sprintf("new dialog of character \"%s\"", characterID)
+	s.Timeline.AddMilestoneDialog(description, characterID, text)
 	// todo
 }
 

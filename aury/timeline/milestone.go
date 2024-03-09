@@ -1,12 +1,17 @@
 package timeline
 
-import "aury/aury/characters"
+import (
+	"aury/aury/characters"
+	"aury/aury/dialogs"
+)
 
 type Milestone struct {
-	Code        uint
-	Description string
-	Type        string
-	Action      *Action
+	Code          uint
+	Description   string
+	Type          string
+	Action        *Action
+	Dialog        *dialogs.Dialog
+	DialogOptions *dialogs.DialogOption
 }
 
 func NewMilestone(code uint, description, mType string) Milestone {
@@ -21,6 +26,31 @@ func NewMilestone(code uint, description, mType string) Milestone {
 		Code:        code,
 	}
 }
+
+func NewMilestoneDialog(code uint, description, mType string, characterID characters.CharacterID, text string) Milestone {
+
+	NewDialog := dialogs.NewDialog(characterID, text)
+
+	return Milestone{
+		Description: description,
+		Type:        mType,
+		Code:        code,
+		Dialog:      NewDialog,
+	}
+}
+
+// TODO
+// func NewMilestoneDialogOption(code uint, description, mType string, characterID characters.CharacterID, options dialogs.DialogOption) Milestone {
+
+// 	newDialogOption := dialogs.NewDialogOption(characterID, options)
+
+// 	return Milestone{
+// 		Description:   description,
+// 		Type:          mType,
+// 		Code:          code,
+// 		DialogOptions: newDialogOption,
+// 	}
+// }
 
 func NewMilestoneAction(code uint, description, mType string, action interface{}) Milestone {
 

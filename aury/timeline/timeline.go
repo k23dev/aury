@@ -23,9 +23,9 @@ func (t *Timeline) AddMilestoneLocation(description string) {
 	t.Milestones = append(t.Milestones, newMilestone)
 }
 
-func (t *Timeline) AddMilestoneDialog(description string) {
+func (t *Timeline) AddMilestoneDialog(description string, characterID characters.CharacterID, text string) {
 	actionType := "_dialog"
-	newMilestone := NewMilestone(milestonescodes.DialogGeneric, description, actionType)
+	newMilestone := NewMilestoneDialog(milestonescodes.DialogGeneric, description, actionType, characterID, text)
 	t.Milestones = append(t.Milestones, newMilestone)
 }
 
