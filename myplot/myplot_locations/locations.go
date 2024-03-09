@@ -7,20 +7,22 @@ import (
 )
 
 func LocationsSetup(episode *episodes.Episode) []locations.Location {
-	castle, _ := episode.AddLocation("castle")
+	castle := locations.New("castle")
+	castle.SetName("Castillo negro")
 	castle.SetBackground(aury_assets.Locations + "/castillo.jpg")
-	episode.UpdateLocation(*castle)
+	episode.AddLocation(*castle)
 
-	cafe, _ := episode.AddLocation("cafe")
+	cafe := locations.New("cafe")
+	cafe.SetName("Caffé de Orleans")
 	cafe.SetBackground(aury_assets.Locations + "/cafe_001.jpg")
-	episode.UpdateLocation(*cafe)
+	episode.AddLocation(*cafe)
 
-	cafecito, _ := episode.AddLocation("cafecito")
+	cafecito := locations.New("cafe")
 	cafecito.SetName("Castillo vagabundo")
 	cafecito.SetBackground(aury_assets.Locations + "cafecit_001_final_finalgo ru.jpg")
 	cafecito.AddBgStyle("oscuro")
 	cafecito.AddBgStyle("fondoAzul")
-	episode.UpdateLocation(*cafecito)
+	episode.AddLocation(*cafe)
 
 	return episode.Locations
 }

@@ -59,13 +59,7 @@ func (e *Episode) JumpToScene(id scenes.SceneID) (*scenes.Scene, error) {
 	return e.GetScene(id)
 }
 
-func (e *Episode) AddCharacter(id characters.CharacterID, name string) (*characters.Character, error) {
-	newCharacter := characters.NewCharacter(id, name)
-	e.insertCharacter(*newCharacter)
-	return newCharacter, nil
-}
-
-func (e *Episode) AddCharacterStruct(character characters.Character) error {
+func (e *Episode) AddCharacter(character characters.Character) error {
 	e.insertCharacter(character)
 	return nil
 }
@@ -103,11 +97,9 @@ func (e *Episode) GetCharacterKey(id characters.CharacterID) (int, error) {
 	return 0, auryError.New("Get Character key", auryError.CharacterNotFound(id), 0)
 }
 
-func (e *Episode) AddLocation(id locations.LocationID) (*locations.Location, error) {
-	newLocation := locations.New()
-	newLocation.ID = id
-	e.insertLocation(*newLocation)
-	return newLocation, nil
+func (e *Episode) AddLocation(newLocation locations.Location) error {
+	e.insertLocation(newLocation)
+	return nil
 }
 
 func (e *Episode) UpdateLocation(location locations.Location) error {

@@ -10,7 +10,7 @@ type Location struct {
 
 type LocationID string
 
-func New() *Location {
+func New(id LocationID) *Location {
 	return &Location{}
 }
 
