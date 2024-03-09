@@ -7,7 +7,6 @@ import (
 )
 
 func Setup(episode *episodes.Episode) {
-	episode.Characters = myplot_characters.CharactersEpisode2Setup(episode)
-
+	episode.Characters = myplot_characters.GamesCharactersSetup(episode)
 	episode.Locations = myplot_locations.LocationsSetup(episode)
 }

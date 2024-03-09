@@ -65,6 +65,11 @@ func (e *Episode) AddCharacter(id characters.CharacterID, name string) (*charact
 	return newCharacter, nil
 }
 
+func (e *Episode) AddCharacterStruct(character characters.Character) error {
+	e.insertCharacter(character)
+	return nil
+}
+
 func (e *Episode) UpdateCharacter(character characters.Character) error {
 	key, err := e.GetCharacterKey(character.ID)
 	if err != nil {
