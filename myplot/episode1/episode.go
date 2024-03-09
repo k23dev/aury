@@ -5,7 +5,8 @@ import (
 )
 
 func Episode() *aury.Episode {
-
+	episode := aury.NewEpisode()
+	Setup(episode)
 	// set the characters
 	chAury, _ := episode.GetCharacter("aury")
 	chO, _ := episode.GetCharacter("o")

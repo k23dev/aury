@@ -5,7 +5,6 @@ import (
 )
 
 func main() {
-	episode1.Setup()
 	ep1 := episode1.Episode()
 	ep1.Debug()
 
