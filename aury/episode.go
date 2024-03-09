@@ -74,11 +74,11 @@ func (e *Episode) RemoveLocation(id locations.LocationID) error {
 	return nil
 }
 
-func (e *Episode) GetLocation(id locations.LocationID) (*locations.Location, error) {
-	var selectedLocation *locations.Location
+func (e *Episode) GetLocation(id locations.LocationID) (locations.Location, error) {
+	var selectedLocation locations.Location
 	for _, location := range e.Locations {
 		if location.ID == id {
-			selectedLocation = &location
+			selectedLocation = location
 			break
 		}
 	}
@@ -131,9 +131,34 @@ func (e *Episode) deleteLocation(oldLocationID locations.LocationID) {
 
 // this shows every milestone in the plot
 func (e *Episode) Debug() {
+	fmt.Println(" ")
+	fmt.Println("########")
+	fmt.Println("Debug")
+	fmt.Println("########")
+	fmt.Println(" ")
 	for _, scene := range e.Scenes {
+		fmt.Println(" ")
+		fmt.Printf("Scene > %s \n", scene.ID)
+		fmt.Println("----------------------------")
 		for _, milestone := range scene.Timeline.Milestones {
-			fmt.Printf("%v \n", milestone)
+			fmt.Printf("Description: \"%s\" | ActionType: \"%v\" \n", milestone.Description, milestone.ActionType)
+		}
+	}
+}
+
+// this shows every milestone in the plot
+func (e *Episode) Play() {
+	fmt.Println(" ")
+	fmt.Println("########")
+	fmt.Println("Playing...")
+	fmt.Println("########")
+	fmt.Println(" ")
+	for _, scene := range e.Scenes {
+		fmt.Println(" ")
+		fmt.Printf("Scene > %s \n", scene.ID)
+		fmt.Println("----------------------------")
+		for _, milestone := range scene.Timeline.Milestones {
+			fmt.Printf("Description: \"%s\" | ActionType: \"%v\" \n", milestone.Description, milestone.ActionType)
 		}
 	}
 }
