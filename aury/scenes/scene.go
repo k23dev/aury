@@ -9,12 +9,9 @@ import (
 )
 
 type Scene struct {
-	ID SceneID
-	// Prev       *Scene
-	// Next       *[]Scene
+	ID       SceneID
 	Location *locations.Location
 	Music    *locations.Music
-	// Characters *[]characters.Character
 	Dialogs  *[]dialogs.Dialog
 	Timeline *timeline.Timeline
 }
@@ -39,39 +36,41 @@ func (s *Scene) SetMusic(filepath string) error {
 }
 
 func (s *Scene) SetLocation(location locations.Location) error {
-	description := fmt.Sprintf("location set %s", location.ID)
+	description := fmt.Sprintf("location set \"%v\"", location.ID)
 	s.Timeline.AddMilestone(description)
 	// TODO
 	return nil
 }
 
 func (s *Scene) AddDialog(character characters.CharacterID, text string) {
-	description := fmt.Sprintf("new dialog of character %s", character)
+	description := fmt.Sprintf("new dialog of character \"%s\"", character)
 	s.Timeline.AddMilestoneDialog(description)
 	// todo
 }
 
 func (s *Scene) AddDialogWithOptions(character characters.CharacterID, text string) {
-	description := fmt.Sprintf("new dialog with options of character %s", character)
-	s.Timeline.AddMilestoneDialogWithOptions(description)
+	description := fmt.Sprintf("new dialog with options of character \"%s\"", character)
+	s.Timeline.AddMilestoneDialogWithOptions(description, nil)
 	// todo
 }
 
-// func (s *Scene) SetPrevScene(prev *Scene) error {
-// 	s.Prev = prev
-// 	// TODO
-// 	return nil
-// }
+func (s *Scene) AddActionOfCharacter(description string, action interface{}, character characters.CharacterID) {
+	description = fmt.Sprintf("new action: \"%v\" from \"%s\"", description, character)
+	s.Timeline.AddMilestoneActionOfCharacter(description, action, character)
+	// todo
+}
 
-// func (s *Scene) AddNextScene(next *Scene) error {
-// 	// TODO
-// 	return nil
-// }
+func (s *Scene) AddActionFromCharacterTo(description string, action interface{}, character characters.CharacterID, reciver interface{}) {
+	description = fmt.Sprintf("new action: \"%v\" from \"%s\" -> \"%s\"", description, character, reciver)
+	s.Timeline.AddMilestoneActionFromCharacterTo(description, action, character, reciver)
+	// todo
+}
 
-// func (s *Scene) RemoveNextScene(next *Scene) error {
-// 	// TODO
-// 	return nil
-// }
+func (s *Scene) AddAction(description string, action interface{}) {
+	description = fmt.Sprintf("new action: \"%v\"", action)
+	s.Timeline.AddMilestoneAction(description, action)
+	// todo
+}
 
 func (s *Scene) PlayScene() {
 	for key, milestone := range s.Timeline.Milestones {
