@@ -35,7 +35,8 @@ func scene1(episode *episodes.Episode) {
 	currentScene.AddActionOfCharacter("abrazo", "abraza", chAury.ID)
 	currentScene.AddActionFromCharacterTo("golpea", Golpear, chAury.ID, chO)
 	chO.EditAttribute("maldad", 10)
-	episode.UpdateCharacter(*chO)
+
+	episode.UpdateCharacter(chO)
 }
 
 func scene2(episode *episodes.Episode) {

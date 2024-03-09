@@ -45,31 +45,26 @@ func (s *Scene) SetLocation(location locations.Location) error {
 func (s *Scene) AddDialog(characterID characters.CharacterID, text string) {
 	description := fmt.Sprintf("new dialog of character \"%s\"", characterID)
 	s.Timeline.AddMilestoneDialog(description, characterID, text)
-	// todo
 }
 
 func (s *Scene) AddDialogWithOptions(character characters.CharacterID, text string) {
 	description := fmt.Sprintf("new dialog with options of character \"%s\"", character)
 	s.Timeline.AddMilestoneDialogWithOptions(description, nil)
-	// todo
 }
 
 func (s *Scene) AddActionOfCharacter(description string, action interface{}, character characters.CharacterID) {
 	description = fmt.Sprintf("new action: \"%v\" from \"%s\"", description, character)
 	s.Timeline.AddMilestoneActionOfCharacter(description, action, character)
-	// todo
 }
 
 func (s *Scene) AddActionFromCharacterTo(description string, action interface{}, character characters.CharacterID, reciver interface{}) {
 	description = fmt.Sprintf("new action: \"%v\" from \"%s\" -> \"%s\"", description, character, reciver)
 	s.Timeline.AddMilestoneActionFromCharacterTo(description, action, character, reciver)
-	// todo
 }
 
 func (s *Scene) AddAction(description string, action interface{}) {
 	description = fmt.Sprintf("new action: \"%v\"", action)
 	s.Timeline.AddMilestoneAction(description, action)
-	// todo
 }
 
 func (s *Scene) PlayScene() {

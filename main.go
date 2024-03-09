@@ -10,8 +10,8 @@ func main() {
 	// ep2 := episode2.Episode()
 
 	// debug episode
-	auryDebug.Episode(&ep1)
 	auryDebug.Locations(&ep1.Locations)
+	auryDebug.Episode(&ep1)
 	// auryDebug.Episode(&ep2)
 
 	// debug characters

@@ -78,11 +78,11 @@ func (e *Episode) RemoveCharacter(id characters.CharacterID) error {
 	return nil
 }
 
-func (e *Episode) GetCharacter(id characters.CharacterID) (*characters.Character, error) {
-	var selectedCharacter *characters.Character
+func (e *Episode) GetCharacter(id characters.CharacterID) (characters.Character, error) {
+	var selectedCharacter characters.Character
 	for _, character := range e.Characters {
 		if character.ID == id {
-			return &character, nil
+			return character, nil
 		}
 	}
 	return selectedCharacter, auryError.New("Get Character", auryError.CharacterNotFound(id), 0)
