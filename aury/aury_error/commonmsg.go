@@ -18,3 +18,7 @@ func CharacterNotFound(id characters.CharacterID) string {
 func LocationNotFound(id locations.LocationID) string {
 	return fmt.Sprintf("Location %s not found", id)
 }
+
+func AttributeNotFound(id characters.AttributeID) string {
+	return fmt.Sprintf("Attribute %s not found", id)
+}

@@ -1,8 +1,10 @@
 package episode1
 
-import "aury/aury"
+import (
+	"aury/aury/episodes"
+)
 
-func Setup(episode *aury.Episode) {
+func Setup(episode *episodes.Episode) {
 	CharactersSetup(episode)
 	LocationsSetup(episode)
 
