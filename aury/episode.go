@@ -1,6 +1,7 @@
 package aury
 
 import (
+	auryError "aury/aury/aury_error"
 	"aury/aury/characters"
 	"aury/aury/locations"
 	"aury/aury/scenes"
@@ -12,6 +13,7 @@ type Episode struct {
 	Characters []characters.Character
 	Locations  []locations.Location
 	Scenes     []scenes.Scene
+	SceneChain []int
 }
 
 func NewEpisode() *Episode {
@@ -38,7 +40,23 @@ func (e *Episode) GetScene(id scenes.SceneID) (*scenes.Scene, error) {
 			break
 		}
 	}
+	if selectedScene.ID == "" {
+		return selectedScene, auryError.New("Get Scene", auryError.SceneNotFound(id), 0)
+	}
 	return selectedScene, nil
+}
+
+func (e *Episode) GetSceneKey(id scenes.SceneID) int {
+	for key, scene := range e.Scenes {
+		if scene.ID == id {
+			return key
+		}
+	}
+	return 0
+}
+
+func (e *Episode) JumpToScene(id scenes.SceneID) (*scenes.Scene, error) {
+	return e.GetScene(id)
 }
 
 func (e *Episode) AddCharacter(id characters.CharacterID, name string) (*characters.Character, error) {
@@ -60,6 +78,11 @@ func (e *Episode) GetCharacter(id characters.CharacterID) (*characters.Character
 			break
 		}
 	}
+
+	if selectedCharacter.ID == "" {
+		return selectedCharacter, auryError.New("Get Character", auryError.CharacterNotFound(id), 0)
+	}
+
 	return selectedCharacter, nil
 }
 
@@ -81,6 +104,10 @@ func (e *Episode) GetLocation(id locations.LocationID) (locations.Location, erro
 			selectedLocation = location
 			break
 		}
+	}
+
+	if selectedLocation.ID == "" {
+		return selectedLocation, auryError.New("Get Location", auryError.LocationNotFound(id), 0)
 	}
 	return selectedLocation, nil
 }
@@ -136,12 +163,12 @@ func (e *Episode) Debug() {
 	fmt.Println("Debug")
 	fmt.Println("########")
 	fmt.Println(" ")
-	for _, scene := range e.Scenes {
+	for key, scene := range e.Scenes {
 		fmt.Println(" ")
-		fmt.Printf("Scene > %s \n", scene.ID)
+		fmt.Printf("Scene > [%d] \"%s\" \n", key, scene.ID)
 		fmt.Println("----------------------------")
-		for _, milestone := range scene.Timeline.Milestones {
-			fmt.Printf("Description: \"%s\" | ActionType: \"%v\" \n", milestone.Description, milestone.ActionType)
+		for mKey, milestone := range scene.Timeline.Milestones {
+			fmt.Printf("[%d] >> Description: \"%s\" | Type > Code: \"%v\" >  \"%d\" \n", mKey, milestone.Description, milestone.Type, milestone.Code)
 		}
 	}
 }
@@ -157,8 +184,8 @@ func (e *Episode) Play() {
 		fmt.Println(" ")
 		fmt.Printf("Scene > %s \n", scene.ID)
 		fmt.Println("----------------------------")
-		for _, milestone := range scene.Timeline.Milestones {
-			fmt.Printf("Description: \"%s\" | ActionType: \"%v\" \n", milestone.Description, milestone.ActionType)
+		for mKey, milestone := range scene.Timeline.Milestones {
+			fmt.Printf("[%d] >> Description: \"%s\" | Type > Code: \"%v\" >  \"%d\" \n", mKey, milestone.Description, milestone.Type, milestone.Code)
 		}
 	}
 }
