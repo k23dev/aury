@@ -38,21 +38,21 @@ func (s *Scene) SetMusic(filepath string) error {
 	return nil
 }
 
-func (s *Scene) SetLocation(location *locations.Location) error {
-	description := fmt.Sprintf("location set %s\n", location.ID)
+func (s *Scene) SetLocation(location locations.Location) error {
+	description := fmt.Sprintf("location set %s", location.ID)
 	s.Timeline.AddMilestone(description)
 	// TODO
 	return nil
 }
 
-func (s *Scene) AddDialog(character *characters.CharacterID, text string) {
-	description := fmt.Sprintf("new dialog of character %s\n", *character)
+func (s *Scene) AddDialog(character characters.CharacterID, text string) {
+	description := fmt.Sprintf("new dialog of character %s", character)
 	s.Timeline.AddMilestoneDialog(description)
 	// todo
 }
 
-func (s *Scene) AddDialogWithOptions(character *characters.CharacterID, text string) {
-	description := fmt.Sprintf("new dialog with options of character %s\n", *character)
+func (s *Scene) AddDialogWithOptions(character characters.CharacterID, text string) {
+	description := fmt.Sprintf("new dialog with options of character %s", character)
 	s.Timeline.AddMilestoneDialogWithOptions(description)
 	// todo
 }
@@ -75,7 +75,7 @@ func (s *Scene) AddDialogWithOptions(character *characters.CharacterID, text str
 
 func (s *Scene) PlayScene() {
 	for key, milestone := range s.Timeline.Milestones {
-		fmt.Printf("%d > %s \n", key, milestone.Description)
+		fmt.Printf("%d > %s ", key, milestone.Description)
 	}
 }
 
