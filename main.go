@@ -1,37 +1,36 @@
 package main
 
 import (
-	"aury/screens"
-	"log"
-	"net/http"
+	"embed"
 
-	"github.com/maxence-charriere/go-app/v9/pkg/app"
+	"github.com/wailsapp/wails/v2"
+	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
+//go:embed all:frontend/dist
+var assets embed.FS
+
 func main() {
-	// ep1 := episode1.Episode()
-	// // ep2 := episode2.Episode()
+	// Create an instance of the app structure
+	app := NewApp()
 
-	// // debug episode
-	// auryDebug.Locations(&ep1.Locations)
-	// auryDebug.Episode(&ep1)
-	// // auryDebug.Episode(&ep2)
-
-	// // debug characters
-	// // auryDebug.Character(&ep1.Characters[0])
-	// auryDebug.Characters(&ep1.Characters)
-	// // auryDebug.Characters(&ep2.Characters)
-
-	app.Route("/", &screens.Hello{})
-
-	app.RunWhenOnBrowser()
-
-	http.Handle("/", &app.Handler{
-		Name:        "Hello",
-		Description: "An Hello World! example",
+	// Create application with options
+	err := wails.Run(&options.App{
+		Title:  "aury",
+		Width:  1024,
+		Height: 768,
+		AssetServer: &assetserver.Options{
+			Assets: assets,
+		},
+		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		OnStartup:        app.startup,
+		Bind: []interface{}{
+			app,
+		},
 	})
 
-	if err := http.ListenAndServe(":8000", nil); err != nil {
-		log.Fatal(err)
+	if err != nil {
+		println("Error:", err.Error())
 	}
 }

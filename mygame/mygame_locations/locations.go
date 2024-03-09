@@ -1,4 +1,4 @@
-package myplot_locations
+package mygame_locations
 
 import (
 	"aury/aury/aury_assets"

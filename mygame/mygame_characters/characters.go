@@ -1,4 +1,4 @@
-package myplot_characters
+package mygame_characters
 
 import (
 	"aury/aury/aury_assets"

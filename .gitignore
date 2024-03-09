@@ -1,1 +1,3 @@
-_readme-helpers
+build/bin
+node_modules
+frontend/dist
