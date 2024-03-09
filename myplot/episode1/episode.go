@@ -2,6 +2,7 @@ package episode1
 
 import (
 	"aury/aury"
+	"log"
 )
 
 func Episode() aury.Episode {
@@ -29,6 +30,12 @@ func Episode() aury.Episode {
 	if err != nil {
 		panic(err)
 	}
+
+	currentLocation, err = episode.GetLocation("cafecito")
+	if err != nil {
+		log.Println(err)
+	}
+	currentScene.SetLocation(currentLocation)
 
 	currentLocation, _ = episode.GetLocation("cafe")
 	currentScene.SetLocation(currentLocation)
