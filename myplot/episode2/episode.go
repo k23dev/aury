@@ -30,7 +30,7 @@ func Episode() episodes.Episode {
 	currentScene.AddActionOfCharacter("abrazo", "abraza", chAury.ID)
 	currentScene.AddActionFromCharacterTo("golpea", Golpear, chAury.ID, chO)
 	chO.EditAttribute("maldad", 10)
-	episode.UpdateCharacter(*chO)
+	episode.UpdateCharacter(chO)
 
 	currentScene, err = episode.AddScene("el_plan")
 	if err != nil {
