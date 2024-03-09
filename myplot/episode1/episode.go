@@ -25,6 +25,7 @@ func Episode() aury.Episode {
 	currentScene.AddDialog(chAury.ID, "Hola, querida. ¿Cómo estás?")
 	currentScene.AddDialog(chO.ID, "Bien, ama.")
 	currentScene.AddDialog(chAury.ID, "Mejor así ...")
+	currentScene.AddActionOfCharacter("abrazo", "abraza", chAury.ID)
 
 	currentScene, err = episode.AddScene("el_plan")
 	if err != nil {
@@ -42,6 +43,16 @@ func Episode() aury.Episode {
 
 	currentScene.AddDialog(chRene.ID, "Todo va según el plan")
 	currentScene.AddDialog(chPrince.ID, "¡Excelentes noticias!")
+	currentScene.AddActionOfCharacter("Escupirse la mano", EstrecharMano, chPrince.ID)
+	currentScene.AddActionFromCharacterTo("estrechar mano", EstrecharMano, chPrince.ID, chRene.ID)
 
 	return *episode
+}
+
+func Escupirse() string {
+	return "Escupirse"
+}
+
+func EstrecharMano() string {
+	return "Estrechar"
 }
