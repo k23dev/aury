@@ -4,7 +4,7 @@ import (
 	"aury/aury"
 )
 
-func Episode() *aury.Episode {
+func Episode() aury.Episode {
 	episode := aury.NewEpisode()
 	Setup(episode)
 	// set the characters
@@ -21,16 +21,20 @@ func Episode() *aury.Episode {
 	currentLocation, _ := episode.GetLocation("castle")
 	currentScene.SetLocation(currentLocation)
 
-	currentScene.AddDialog(&chAury.ID, "Hola, querida. ¿Cómo estás?")
-	currentScene.AddDialog(&chO.ID, "Bien, ama.")
-	currentScene.AddDialog(&chAury.ID, "Mejor así ...")
+	currentScene.AddDialog(chAury.ID, "Hola, querida. ¿Cómo estás?")
+	currentScene.AddDialog(chO.ID, "Bien, ama.")
+	currentScene.AddDialog(chAury.ID, "Mejor así ...")
+
+	currentScene, err = episode.AddScene("el_plan")
+	if err != nil {
+		panic(err)
+	}
 
 	currentLocation, _ = episode.GetLocation("cafe")
 	currentScene.SetLocation(currentLocation)
 
-	currentScene.AddDialog(&chRene.ID, "Todo va según el plan")
-	currentScene.AddDialog(&chPrince.ID, "¡Excelentes noticias!")
+	currentScene.AddDialog(chRene.ID, "Todo va según el plan")
+	currentScene.AddDialog(chPrince.ID, "¡Excelentes noticias!")
 
-	return episode
-
+	return *episode
 }
