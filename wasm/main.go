@@ -6,6 +6,6 @@ import "syscall/js"
 
 func main() {
 	// now you expose your function to js
-	js.Global().Set("greetings", greetingsWrapper())
+	js.Global().Set("Greet", greetWrapper())
 	<-make(chan struct{})
 }
