@@ -15,13 +15,13 @@ func greetingsWrapper() js.Func {
 	// or just pass the the function js.FuncOf
 	jsonFunc := js.FuncOf(func(this js.Value, args []js.Value) any {
 		if len(args) != 1 {
-			return "Invalid no of arguments passed"
+			return "Invalid number of arguments passed"
 		}
-		inputJSON := args[0].String()
-		fmt.Printf("input %s\n", inputJSON)
-		pretty, err := Greetings(inputJSON)
+		input := args[0].String()
+		fmt.Printf("input %s\n", input)
+		pretty, err := Greetings(input)
 		if err != nil {
-			fmt.Printf("unable to convert to json %s\n", err)
+			fmt.Printf("unable to convert to run the func %s\n", err)
 			return err.Error()
 		}
 		return pretty
