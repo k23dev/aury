@@ -1,10 +1,10 @@
 package episodes
 
 import (
-	auryError "aury/aury/aury_error"
-	"aury/aury/characters"
-	"aury/aury/locations"
-	"aury/aury/scenes"
+	"aury/game/aury/aury_error"
+	"aury/game/aury/characters"
+	"aury/game/aury/locations"
+	"aury/game/aury/scenes"
 	"fmt"
 	"slices"
 )
@@ -41,7 +41,7 @@ func (e *Episode) GetScene(id scenes.SceneID) (*scenes.Scene, error) {
 		}
 	}
 	if selectedScene.ID == "" {
-		return selectedScene, auryError.New("Get Scene", auryError.SceneNotFound(id), 0)
+		return selectedScene, aury_error.New("Get Scene", aury_error.SceneNotFound(id), 0)
 	}
 	return selectedScene, nil
 }
@@ -85,7 +85,7 @@ func (e *Episode) GetCharacter(id characters.CharacterID) (characters.Character,
 			return character, nil
 		}
 	}
-	return selectedCharacter, auryError.New("Get Character", auryError.CharacterNotFound(id), 0)
+	return selectedCharacter, aury_error.New("Get Character", aury_error.CharacterNotFound(id), 0)
 }
 
 func (e *Episode) GetCharacterKey(id characters.CharacterID) (int, error) {
@@ -94,7 +94,7 @@ func (e *Episode) GetCharacterKey(id characters.CharacterID) (int, error) {
 			return key, nil
 		}
 	}
-	return 0, auryError.New("Get Character key", auryError.CharacterNotFound(id), 0)
+	return 0, aury_error.New("Get Character key", aury_error.CharacterNotFound(id), 0)
 }
 
 func (e *Episode) AddLocation(newLocation locations.Location) error {
@@ -123,7 +123,7 @@ func (e *Episode) GetLocation(id locations.LocationID) (locations.Location, erro
 			return location, nil
 		}
 	}
-	return selectedLocation, auryError.New("Get Location", auryError.LocationNotFound(id), 0)
+	return selectedLocation, aury_error.New("Get Location", aury_error.LocationNotFound(id), 0)
 }
 
 func (e *Episode) GetLocationKey(id locations.LocationID) (int, error) {
@@ -132,7 +132,7 @@ func (e *Episode) GetLocationKey(id locations.LocationID) (int, error) {
 			return key, nil
 		}
 	}
-	return 0, auryError.New("Get Location key", auryError.LocationNotFound(id), 0)
+	return 0, aury_error.New("Get Location key", aury_error.LocationNotFound(id), 0)
 }
 
 // private fn
@@ -149,7 +149,7 @@ func (e *Episode) deleteScene(oldSceneID scenes.SceneID) error {
 			return nil
 		}
 	}
-	return auryError.New("Deleting scene", auryError.SceneNotFound(oldSceneID), 0)
+	return aury_error.New("Deleting scene", aury_error.SceneNotFound(oldSceneID), 0)
 }
 
 func (e *Episode) insertCharacter(newCharacter characters.Character) {
@@ -164,7 +164,7 @@ func (e *Episode) deleteCharacter(oldCharacterID characters.CharacterID) error {
 			return nil
 		}
 	}
-	return auryError.New("deleting character", auryError.CharacterNotFound(oldCharacterID), 0)
+	return aury_error.New("deleting character", aury_error.CharacterNotFound(oldCharacterID), 0)
 }
 
 func (e *Episode) insertLocation(newLocation locations.Location) {
@@ -179,7 +179,7 @@ func (e *Episode) deleteLocation(oldLocationID locations.LocationID) error {
 			return nil
 		}
 	}
-	return auryError.New("deleting location", auryError.LocationNotFound(oldLocationID), 0)
+	return aury_error.New("deleting location", aury_error.LocationNotFound(oldLocationID), 0)
 }
 
 // this shows every milestone in the plot

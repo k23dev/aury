@@ -1,9 +1,9 @@
 package mygame_locations
 
 import (
-	"aury/aury/aury_assets"
-	"aury/aury/episodes"
-	"aury/aury/locations"
+	"aury/game/aury/aury_assets"
+	"aury/game/aury/episodes"
+	"aury/game/aury/locations"
 )
 
 func LocationsSetup(episode *episodes.Episode) []locations.Location {

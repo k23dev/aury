@@ -1,10 +1,10 @@
 package scenes
 
 import (
-	"aury/aury/characters"
-	"aury/aury/dialogs"
-	"aury/aury/locations"
-	"aury/aury/timeline"
+	"aury/game/aury/characters"
+	"aury/game/aury/dialogs"
+	"aury/game/aury/locations"
+	"aury/game/aury/timeline"
 	"fmt"
 )
 

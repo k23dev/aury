@@ -1,9 +1,9 @@
-package auryError
+package aury_error
 
 import (
-	"aury/aury/characters"
-	"aury/aury/locations"
-	"aury/aury/scenes"
+	"aury/game/aury/characters"
+	"aury/game/aury/locations"
+	"aury/game/aury/scenes"
 	"fmt"
 )
 

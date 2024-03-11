@@ -1,4 +1,4 @@
-package auryError
+package aury_error
 
 import (
 	"fmt"

@@ -1,9 +1,9 @@
 package mygame_characters
 
 import (
-	"aury/aury/aury_assets"
-	"aury/aury/characters"
-	"aury/aury/episodes"
+	"aury/game/aury/aury_assets"
+	"aury/game/aury/characters"
+	"aury/game/aury/episodes"
 )
 
 func GamesCharactersSetup(episode *episodes.Episode) []characters.Character {
