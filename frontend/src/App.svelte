@@ -1,6 +1,4 @@
-<!-- src/App.svelte -->
-<script>
-
+<script lang="ts">
 
   import { Input, Label, Helper } from 'flowbite-svelte';
 

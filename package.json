@@ -1,5 +1,0 @@
-{
-  "devDependencies": {
-    "vite-plugin-wasm": "^3.3.0"
-  }
-}
