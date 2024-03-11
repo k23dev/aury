@@ -1,8 +1,8 @@
 package timeline
 
 import (
-	"aury/aury/characters"
-	"aury/aury/milestonescodes"
+	"aury/game/aury/characters"
+	"aury/game/aury/milestonescodes"
 )
 
 type Timeline struct {

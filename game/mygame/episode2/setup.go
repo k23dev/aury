@@ -1,9 +1,9 @@
 package episode2
 
 import (
-	"aury/aury/episodes"
-	"aury/mygame/mygame_characters"
-	"aury/mygame/mygame_locations"
+	"aury/game/aury/episodes"
+	"aury/game/mygame/mygame_characters"
+	"aury/game/mygame/mygame_locations"
 )
 
 func Setup(episode *episodes.Episode) {

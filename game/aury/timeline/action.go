@@ -1,8 +1,6 @@
 package timeline
 
-import (
-	"aury/aury/characters"
-)
+import "aury/game/aury/characters"
 
 type Action struct {
 	Action interface{}

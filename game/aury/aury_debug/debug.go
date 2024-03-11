@@ -1,9 +1,9 @@
 package auryDebug
 
 import (
-	"aury/aury/characters"
-	"aury/aury/episodes"
-	"aury/aury/locations"
+	"aury/game/aury/characters"
+	"aury/game/aury/episodes"
+	"aury/game/aury/locations"
 	"fmt"
 	"strings"
 )

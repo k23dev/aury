@@ -1,6 +1,6 @@
 package dialogs
 
-import "aury/aury/characters"
+import "aury/game/aury/characters"
 
 type Dialog struct {
 	CharacterID characters.CharacterID

@@ -1,7 +1,7 @@
 package episode2
 
 import (
-	"aury/aury/episodes"
+	"aury/game/aury/episodes"
 	"log"
 )
 
