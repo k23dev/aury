@@ -31,14 +31,12 @@ func processGoMainFile(goFile *os.File, outputFile *os.File) error {
 	setMainFileHeader(outputFile)
 
 	fmt.Println("----------------------------------------------")
-	fmt.Printf(">>>>> %v \n", "a")
 	for scanner.Scan() {
 		line := scanner.Text()
 
 		// Utilizar expresiones regulares para buscar declaraciones de funciones
 		if matches := regexp.MustCompile(`func\s+(\w+)\s*\(([^)]*)\)\s*(\w*)`).FindStringSubmatch(line); matches != nil {
 			functionName := matches[1]
-			fmt.Printf(">>>>> %v \n", line)
 			// Verificar si la función ya ha sido procesada
 			if processedFunctions[functionName] {
 				continue
