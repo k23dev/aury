@@ -2,3 +2,5 @@ _readme-helpers
 build/*
 frontend/public/assets/WASM
 *.wasm
+mygame/wasm/wrappers_generated.go
+mygame/wasm/main.go

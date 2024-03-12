@@ -56,14 +56,14 @@ func parseParamType(goType string) string {
 	if matches := regexp.MustCompile(`(\w+)\s+(\w+)`).FindStringSubmatch(strings.TrimSpace(goType)); matches != nil {
 		_, parameterType := matches[1], matches[2]
 
-		return goToTSType(parameterType)
+		return converGo2TSType(parameterType)
 	}
 
 	// Tipo por defecto si no hay coincidencia
 	return "any"
 }
 
-func goToTSType(goType string) string {
+func converGo2TSType(goType string) string {
 	switch goType {
 	case "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64":
 		return "number"
@@ -77,9 +77,6 @@ func goToTSType(goType string) string {
 		// Tipo por defecto si no hay coincidencia
 		return "any"
 	}
-
-	// Tipo por defecto si no hay coincidencia
-	return "any"
 }
 
 // parsea los parámetros de una función
@@ -129,12 +126,13 @@ func parseFunctionParameters4Typescript(parameters string) string {
 	splitedParams := strings.Split(parameters, ",")
 	auxParams := []string{}
 	for _, val := range splitedParams {
-		param := strings.Split(strings.TrimLeft(val, " "), " ")
-		paramName := param[0]
-		paramType := param[1]
-		auxParam := paramName + " " + goToTSType(paramType)
-		auxParams = append(auxParams, auxParam)
-
+		if val != "" {
+			param := strings.Split(strings.TrimLeft(val, " "), " ")
+			paramName := param[0]
+			paramType := param[1]
+			auxParam := paramName + " " + converGo2TSType(paramType)
+			auxParams = append(auxParams, auxParam)
+		}
 	}
 	return strings.Join(auxParams, ", ")
 }

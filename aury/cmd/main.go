@@ -10,7 +10,9 @@ import (
 var goFilePath = "../../mygame/wasm/export_functions.go"
 var tsFilePath = "../../frontend/src/aury.ts"
 
+// wasm
 var funcWrappersFilePath = "../../mygame/wasm/wrappers_generated.go"
+var goMainFilePath = "../../mygame/wasm/main.go"
 
 func main() {
 	// Leer el archivo Go que contiene las funciones exportadas
@@ -42,7 +44,7 @@ func main() {
 			if matches[3] == "" {
 				returnType = "void"
 			} else {
-				returnType = goToTSType(returnType)
+				returnType = converGo2TSType(returnType)
 			}
 
 			// Procesar los parámetros y generar la declaración TypeScript
@@ -74,5 +76,28 @@ func main() {
 	}
 
 	fmt.Println("Funciones wrapper generadas con éxito en", funcWrappersFilePath)
+
+	// Leer el archivo Go que contiene las funciones exportadas
+	goFile, err = os.Open(goFilePath)
+	if err != nil {
+		fmt.Println("Error al abrir el archivo Go:", err)
+		return
+	}
+	defer goFile.Close()
+
+	outputFile, err = os.Create(goMainFilePath)
+	if err != nil {
+		fmt.Println("Error al crear el archivo de salida:", err)
+		return
+	}
+	defer outputFile.Close()
+
+	// Generar funciones wrapper desde el archivo Go
+	if err := processGoMainFile(goFile, outputFile); err != nil {
+		fmt.Println("Error al generar main.go:", err)
+		return
+	}
+
+	fmt.Println("Archivo main.go generados con éxito en", goMainFilePath)
 
 }

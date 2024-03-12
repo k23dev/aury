@@ -6,6 +6,7 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"unicode"
 )
 
 func generateWrapperFunctions(goFilePath string, outputFile *os.File) error {
@@ -78,12 +79,12 @@ func %sWrapper() js.Func {
 		%s
 	})
 }
-`, functionName, len(strings.Split(tsParameters, ",")), generateWrapperBody(functionName, tsParameters, auxParametersNoType, returnType))
+`, functionName, len(strings.Split(tsParameters, ",")), generateWrapperBody(functionName, parameters, auxParametersNoType, returnType))
 
 	return wrapperFunction
 }
 
-func generateWrapperBody(functionName, tsParameters, parametersNoType, returnType string) string {
+func generateWrapperBody(functionName, parameters, parametersNoType, returnType string) string {
 	// Puedes personalizar la lógica interna del wrapper aquí según tus necesidades
 	return fmt.Sprintf(`
 		// Extraer los argumentos
@@ -94,21 +95,31 @@ func generateWrapperBody(functionName, tsParameters, parametersNoType, returnTyp
 		
 		// Puedes traducir el resultado a JS si es necesario
 		return result
-`, generateExtractArguments(tsParameters), functionName, parametersNoType)
+`, generateExtractArguments(parameters), functionName, parametersNoType)
 }
 
-func generateExtractArguments(tsParameters string) string {
-	fmt.Println("GENERATE!!!!")
-	fmt.Printf("TS >> \"%s\" \n", tsParameters)
+func generateExtractArguments(parameters string) string {
 	var extractArguments []string
-	for index, param := range strings.Split(tsParameters, ",") {
-		paramParts := strings.Split(param, ":")
+	for index, param := range strings.Split(parameters, ",") {
+		paramParts := strings.Split(strings.TrimLeft(param, " "), " ")
 		if len(paramParts) > 1 {
 			paramName := strings.TrimSpace(paramParts[0])
 			paramType := strings.TrimSpace(paramParts[1])
-			extractArguments = append(extractArguments, fmt.Sprintf("%s := args[%d].%s()", paramName, index, generateGoTypeConversion(paramType)))
+			// conver to param type
+			// if paramType ==
+			paramType = generateGoTypeConversion(paramType)
+			if isNumberType(paramType) {
+				letters := convertNumberTypeToString(paramType)
+				extractArguments = append(extractArguments, fmt.Sprintf("%s_aux := args[%d].%v()", paramName, index, letters))
+				extractArguments = append(extractArguments, fmt.Sprintf("%s := %s(%s_aux)", paramName, strings.ToLower(paramType), paramName))
+			} else {
+				if paramType == "" {
+					extractArguments = append(extractArguments, fmt.Sprintf("%s := args[%d]", paramName, index))
+				} else {
+					extractArguments = append(extractArguments, fmt.Sprintf("%s := args[%d].%s()", paramName, index, paramType))
+				}
+			}
 		}
-		// extractArguments = append(extractArguments, fmt.Sprintf("%s := args[%d].%s()", paramName, index, generateGoTypeConversion(paramType)))
 	}
 
 	return strings.Join(extractArguments, "\n\t\t")
@@ -146,10 +157,37 @@ func generateGoTypeConversion(paramType string) string {
 		return "String"
 	case "bool":
 		return "Bool"
+	case "interface{}":
+		return ""
 	default:
 		// Tipo por defecto
 		return "Any"
 	}
+}
+
+func convertNumberTypeToString(input string) string {
+	return removeNumbers(input)
+}
+
+func removeNumbers(s string) string {
+	// Eliminar los números del string
+	var onlyLetters []rune
+	for _, char := range s {
+		if !unicode.IsDigit(char) {
+			onlyLetters = append(onlyLetters, char)
+		}
+	}
+	return string(onlyLetters)
+}
+
+func isNumberType(s string) bool {
+	// Verificar si el string contiene al menos un número
+	for _, char := range s {
+		if unicode.IsDigit(char) {
+			return true
+		}
+	}
+	return false
 }
 
 func setFileHeader(outputFile *os.File) {

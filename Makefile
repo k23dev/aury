@@ -17,8 +17,7 @@ frontend:
 	npm install -D tailwindcss postcss autoprefixer
 	npx tailwindcss init -p
 	npm install -D flowbite-svelte flowbite
-dev: auryparser wasm
-	cd ./${DIR_FRONTEND} && npm run dev
 wasm-build: wasm
 	cd ./${DIR_FRONTEND} && npm run build
-
+dev: auryparser wasm
+	cd ./${DIR_FRONTEND} && npm run dev
