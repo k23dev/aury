@@ -1,7 +1,13 @@
 <script lang="ts">
 
+  import {handleHashChange} from './lib/aury/router';
   import { Input, Label, Helper } from 'flowbite-svelte';
 
+  window.addEventListener('DOMContentLoaded', handleHashChange);
+  window.addEventListener('hashchange', handleHashChange);
+  let route=handleHashChange();
+  console.log(`Loading... ${route}`);
+  
   let name = '';
   let greeting = '';
 
@@ -22,8 +28,6 @@
       <Input type="text" id="first_name" placeholder="John" bind:value={name} on:input={handleInput} required />
     </div>
   </form>
-  <!-- <label for="name">Name:</label>
-  <input type="text" id="name" bind:value={name} on:input={handleInput} /> -->
 
   {#if greeting}
     <p>{greeting}</p>
